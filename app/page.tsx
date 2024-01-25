@@ -1,6 +1,7 @@
 'use client'
 
 import { PrimaryButton } from '@/src/components/Button';
+import { Header, SubHeader } from '@/src/components/Typography';
 import { QUESTION_BASE_URL } from '@/src/constants/routes';
 import { useRouter } from 'next/navigation';
 
@@ -12,8 +13,9 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
-      Quizapp
+    <main className="h-screen flex flex-col items-center justify-center">
+      <Header content='Quizapp' />
+      <SubHeader className="my-10" content='A Simple Quiz Application' />
       <PrimaryButton onClick={handleStartClick}>Start!</PrimaryButton>
     </main>
   );
