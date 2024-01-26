@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 import { PrimaryButton } from "@/src/components/Button";
 import { Header, SubHeader, ContentText } from "@/src/components/Typography";
@@ -21,6 +21,8 @@ const Page = () => {
   const handleHomeClick = () => {
     router.push('/');
   }
+
+  if (scoreRecommendation.recommendations.length <= 0) redirect('/');
 
   return (
     <main className={scoreRecommendationContainerClasses}>

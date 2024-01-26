@@ -3,7 +3,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { PrimaryButton, SecondaryButton } from '@/src/components/Button';
 import { BASE_URL, QUESTION_BASE_URL, SCORE_BASE_URL } from '@/src/constants/routes';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { AnswerCard } from '@/src/components/Card';
 import { ContentText } from '@/src/components/Typography';
 import { DataContext, DataDispatchContext } from '@/src/contexts/dataContext';
@@ -11,7 +11,7 @@ import {
   answerListClasses,
   questionContainerClasses,
 } from './constants';
-import { updateAnswers, updateRecommendations } from '@/src/contexts/actions';
+import { addAnswer, updateAnswers, updateRecommendations } from '@/src/contexts/actions';
 import useSWRMutation from 'swr/mutation';
 import { postFetcher } from '@/src/utils/api/swrFetcher';
 
@@ -30,22 +30,20 @@ const Page = ({ params }: QuestionParams) => {
     isMutating: _
   } = useSWRMutation('http://localhost:3001/recommendations/generate', postFetcher);
 
+  if (questions.length <= 0) redirect('/');
+
   const [selected, setSelected] = useState<number | null>(null);
 
   const question = questions[Number(params.id) - 1];
   const backLabel = Number(params.id) <= 1 ? 'Home' : 'Back';
+  const currentAnswer =
+    currentAnswers.find((item) => item.questionId === question.id);
 
-  const handleSubmit = () => {
-    if (!selected) return;
-    dispatch(updateAnswers(question.id, selected))
-    if (Number(params.id) === 6) {
-      generateRecommendation({answers: [
-        ...currentAnswers, { questionId: question.id, answerId: selected }
-      ]});
-    } else {
-      router.push(`${QUESTION_BASE_URL}/${Number(params.id) + 1}`);
+  useEffect(() => {
+    if(currentAnswer) {
+      setSelected(currentAnswer.answerId);
     }
-  }
+  }, []);
 
   useEffect(() => {
     if (data?.status === 200) {
@@ -54,10 +52,21 @@ const Page = ({ params }: QuestionParams) => {
     }
   }, [data])
 
-  const generateResults = async () => {
-    try {
-    } catch (e) {
-      console.log("Something went wrong");
+  const handleSubmit = () => {
+    if (!selected) return;
+
+    if (currentAnswer) {
+      dispatch(updateAnswers(question.id, selected))
+    } else {
+      dispatch(addAnswer(question.id, selected))
+    }
+
+    if (Number(params.id) === 6) {
+      generateRecommendation({answers: [
+        ...currentAnswers, { questionId: question.id, answerId: selected }
+      ]});
+    } else {
+      router.push(`${QUESTION_BASE_URL}/${Number(params.id) + 1}`);
     }
   }
 
