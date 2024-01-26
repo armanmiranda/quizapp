@@ -1,11 +1,12 @@
 'use client'
 
+import { useRouter } from 'next/navigation';
+
 import { PrimaryButton } from '@/src/components/Button';
 import { Header, SubHeader } from '@/src/components/Typography';
 import { QUESTION_BASE_URL } from '@/src/constants/routes';
-import { useRouter } from 'next/navigation';
 
-export default function Home() {
+const Home = () => {
   const router = useRouter();
 
   const handleStartClick = () => {
@@ -20,3 +21,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default Home;

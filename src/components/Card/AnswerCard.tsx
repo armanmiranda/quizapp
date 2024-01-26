@@ -14,7 +14,7 @@ const cardClasses = [
 ]
 
 export const AnswerCard = ({
-  question,
+  answer,
   isActive,
   onClick
 }: Readonly<AnswerCardProps>) => {
@@ -25,14 +25,14 @@ export const AnswerCard = ({
   }
 
   const handleClick = () => {
-    if (onClick) onClick(question.id);
+    if (onClick) onClick(answer.id);
   }
 
   return (
     <div
       className={`${cardClasses.join(" ")} ${buttonIsActive()}`}
       onClick={handleClick}>
-      {question.content}
+      {answer.answer}
     </div>
   )
 }

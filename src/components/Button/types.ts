@@ -3,4 +3,5 @@ export interface ButtonProps {
   onClick?: (props: unknown) => void;
   buttonType?: "button" | "submit" | "reset";
   className?: string;
+  disabled?: boolean;
 }

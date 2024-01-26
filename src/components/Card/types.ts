@@ -1,10 +1,7 @@
-export type AnswerType = {
-  id: number;
-  content: string;
-}
+import { TAnswerData } from "@/src/shared/types";
 
 export interface AnswerCardProps {
   isActive: boolean;
-  question: AnswerType;
+  answer: TAnswerData;
   onClick?: (props: number) => void;
 }
