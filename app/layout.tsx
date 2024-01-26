@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className="h-full">
-        <div className="bg-[aliceblue] h-full">
+        <div className="bg-[aliceblue] h-screen flex flex-col items-center justify-center">
           {children}
         </div>
       </body>

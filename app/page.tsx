@@ -13,7 +13,7 @@ export default function Home() {
   }
 
   return (
-    <main className="h-screen flex flex-col items-center justify-center">
+    <main className="flex flex-col items-center justify-center">
       <Header content='Quizapp' />
       <SubHeader className="my-10" content='A Simple Quiz Application' />
       <PrimaryButton onClick={handleStartClick}>Start!</PrimaryButton>
