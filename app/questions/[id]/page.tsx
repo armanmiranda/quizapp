@@ -1,10 +1,11 @@
 'use client'
 
 import { useState } from 'react';
-import { PrimaryButton } from '@/src/components/Button';
-import { QUESTION_BASE_URL, SCORE_BASE_URL } from '@/src/constants/routes';
+import { PrimaryButton, SecondaryButton } from '@/src/components/Button';
+import { BASE_URL, QUESTION_BASE_URL, SCORE_BASE_URL } from '@/src/constants/routes';
 import { useRouter } from 'next/navigation';
 import { AnswerCard } from '@/src/components/Card';
+import { ContentText } from '@/src/components/Typography';
 
 interface QuestionParams {
   params: { id: string };
@@ -39,6 +40,8 @@ const Page = ({ params }: QuestionParams) => {
     { id: 4, content: "Lorem ipsum dolor sit amet. Ut natus amet et voluptate praesentium et" }
   ]
 
+  const backLabel = Number(params.id) <= 1 ? 'Home' : 'Back';
+
   const [selected, setSelected] = useState<number | null>(null);
 
   const handleSubmit = () => {
@@ -52,6 +55,14 @@ const Page = ({ params }: QuestionParams) => {
 
   }
 
+  const handleBackClick = () => {
+    if (Number(params.id) <= 1)  {
+      router.push(BASE_URL);
+    } else {
+      router.push(`${QUESTION_BASE_URL}/${Number(params.id) - 1}`);
+    }
+  }
+
   const handleQuestionClick = (selectedId: number) => {
     setSelected(selectedId);
   }
@@ -60,9 +71,7 @@ const Page = ({ params }: QuestionParams) => {
     <main className={questionContainerClasses}>
       <div>
         <span className="font-semibold">Question {params.id}</span>
-        <p className="text-slate-700/75">
-          Lorem ipsum dolor sit amet. Ut natus amet et voluptate praesentium et
-        </p>
+        <ContentText content={'Lorem ipsum dolor sit amet. Ut natus amet et voluptate praesentium et'} />
       </div>
       <div className={answerListClasses}>
         {mockData.map((item) => {
@@ -73,8 +82,9 @@ const Page = ({ params }: QuestionParams) => {
                   onClick={handleQuestionClick} />
         })}
       </div>
-      <div className="flex flex-col items-center">
-        <PrimaryButton onClick={handleSubmit}>Submit</PrimaryButton>
+      <div className="flex flex-row-reverse justify-between gap-6">
+        <PrimaryButton className='only:place-self-end' onClick={handleSubmit}>Submit</PrimaryButton>
+        <SecondaryButton onClick={handleBackClick}>{backLabel}</SecondaryButton>
       </div>
     </main>
   );

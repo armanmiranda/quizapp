@@ -3,15 +3,15 @@ import { ButtonProps } from "./types"
 const buttonClasses = [
   "border",
   "border-solid",
-  "border-sky-400",
+  "border-slate-300",
+  "text-slate-600",
   "rounder",
   "px-5",
   "py-2",
-  "hover:bg-sky-400",
-  "hover:text-white",
+  "hover:bg-slate-300/75",
 ].join(" ")
 
-export const PrimaryButton = ({
+export const SecondaryButton = ({
   children,
   onClick,
   buttonType,

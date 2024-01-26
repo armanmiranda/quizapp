@@ -1,6 +1,10 @@
 import { AnswerCardProps } from "./types";
 
 const cardClasses = [
+  'flex',
+  'flex-col',
+  'justify-center',
+  'items-center',
   'border',
   'border-solid',
   'border-sky-400',
