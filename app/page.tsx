@@ -18,7 +18,9 @@ const Home = () => {
   }
 
   useEffect(() => {
-    dispatch(initializeAnswers());
+    if (dispatch !== null) {
+      dispatch(initializeAnswers());
+    }
   }, [])
 
   return (

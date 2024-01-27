@@ -12,4 +12,5 @@ export const defaultState: TDataContextState = {
 }
 
 export const DataContext = createContext<TDataContextState>(defaultState);
-export const DataDispatchContext = createContext(null);
+export const DataDispatchContext =
+  createContext<React.Dispatch<any>>(() => null);

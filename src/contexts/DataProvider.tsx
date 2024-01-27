@@ -5,15 +5,16 @@ import { DataContext, DataDispatchContext, defaultState } from './dataContext';
 import { useQuestions } from '../utils/api/useQuestion';
 import { dataReducer } from './reducer';
 import { updateQuestions } from './actions';
+import { TDataProviderProps } from './types';
 
-const DataProvider = ({ children }) => {
+const DataProvider = ({ children }: TDataProviderProps) => {
   const { questions:questionsData, isLoading, isError } = useQuestions();
   const [data, dispatch] = useReducer(dataReducer, defaultState);
 
   useEffect(() => {
     if (questionsData) {
       const { questions } = questionsData;
-      dispatch(updateQuestions(questions))
+      dispatch(updateQuestions(questions));
     }
   }, [questionsData])
 

@@ -1,5 +1,9 @@
-export const jsonFetcher = (...args) => fetch(...args).then(res => res.json());
-export const postFetcher = async (url, { arg }) => {
+export const jsonFetcher = async (arg: string) => {
+  const response = await fetch(arg)
+  const jsonData = await response.json();
+  return jsonData;
+}
+export const postFetcher = async (url: string, { arg }: { arg: any }) => {
   const response = await fetch(url, {
     method: 'POST',
     headers: {
