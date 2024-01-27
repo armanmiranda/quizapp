@@ -14,6 +14,7 @@ import {
 import { addAnswer, updateAnswers, updateRecommendations } from '@/src/contexts/actions';
 import useSWRMutation from 'swr/mutation';
 import { postFetcher } from '@/src/utils/api/swrFetcher';
+import { API_HOST } from '@/src/constants/routes';
 
 interface QuestionParams {
   params: { id: string };
@@ -28,7 +29,7 @@ const Page = ({ params }: QuestionParams) => {
     data,
     trigger: generateRecommendation,
     isMutating: _
-  } = useSWRMutation('http://localhost:3001/recommendations/generate', postFetcher);
+  } = useSWRMutation(`${API_HOST}/recommendations/generate`, postFetcher);
 
   if (questions.length <= 0) redirect('/');
 

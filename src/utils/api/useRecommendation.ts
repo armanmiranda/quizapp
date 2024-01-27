@@ -1,10 +1,11 @@
 import useSWR from 'swr';
 import { jsonFetcher } from './swrFetcher';
 import { TCurrentAnswersData } from '@/src/shared/types';
+import { API_HOST } from '@/src/constants/routes';
 
 export const generateResults = async (userAnswers: TCurrentAnswersData[]) => {
   try {
-    const response = await fetch('http://localhost:3001/recommendation/generate', {
+    const response = await fetch(`${API_HOST}/recommendation/generate`, {
       method: 'POST',
       body: JSON.stringify(userAnswers)
     })
@@ -22,7 +23,7 @@ export const useQuestions = () => {
     data,
     error,
     isLoading
-  } = useSWR(`http://localhost:3001/questions`, jsonFetcher);
+  } = useSWR(`${API_HOST}/questions`, jsonFetcher);
 
   return {
     questions: data,

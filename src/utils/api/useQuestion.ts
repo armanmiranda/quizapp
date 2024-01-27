@@ -1,12 +1,13 @@
 import useSWR from 'swr';
 import { jsonFetcher } from './swrFetcher';
+import { API_HOST } from '@/src/constants/routes';
 
 export const useQuestion = (id: number) => {
   const {
     data,
     error,
     isLoading
-  } = useSWR(`http://localhost:3001/questions/${id}`, jsonFetcher);
+  } = useSWR(`${API_HOST}/questions/${id}`, jsonFetcher);
 
   return {
     question: data,
@@ -20,7 +21,7 @@ export const useQuestions = () => {
     data,
     error,
     isLoading
-  } = useSWR(`http://localhost:3001/questions`, jsonFetcher);
+  } = useSWR(`${API_HOST}/questions`, jsonFetcher);
 
   return {
     questions: data,
